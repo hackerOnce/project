@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14A389" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="MedicalCase" representedClassName="MedicalCase" syncable="YES">
+        <attribute name="caseContent" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="caseID" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Person" inverseName="medicalCases" inverseEntity="Person" syncable="YES"/>
+    </entity>
+    <entity name="ModelCase" representedClassName="ModelCase" syncable="YES">
+        <attribute name="admissionDiagnosis" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="allergicHistory" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="caseContent" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="caseID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="highAge" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lowAge" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="medicalTreatment" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Person" representedClassName="Person" syncable="YES">
+        <attribute name="admissionDiagnosis" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="age" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="allergicHistory" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="highAge" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lowAge" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="medicalTreatment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="medicalCases" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="MedicalCase" inverseName="owner" inverseEntity="MedicalCase" syncable="YES"/>
+    </entity>
+    <entity name="RawCaseData" representedClassName="RawCaseData" syncable="YES">
+        <attribute name="caseContent" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="updateTime" optional="YES" attributeType="Date" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="MedicalCase" positionX="18" positionY="0" width="128" height="88"/>
+        <element name="ModelCase" positionX="-279" positionY="36" width="128" height="148"/>
+        <element name="Person" positionX="-279" positionY="-108" width="128" height="210"/>
+        <element name="RawCaseData" positionX="-126" positionY="-18" width="128" height="88"/>
+    </elements>
+</model>
