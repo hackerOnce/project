@@ -7,6 +7,8 @@
 //
 
 #import "AutoHeightTextView.h"
+#import "WriteCaseShowTemplateCell.h"
+
 @interface AutoHeightTextView()
 
 @property (nonatomic, weak) NSLayoutConstraint *heightConstraint;
@@ -67,5 +69,7 @@
     
     // update the height constraint
     self.heightConstraint.constant = newHeight;
-}
+    }
+
+
 @end

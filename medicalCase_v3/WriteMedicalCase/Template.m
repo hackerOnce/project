@@ -12,6 +12,10 @@
 
 @implementation Template
 
+@dynamic templateID;
+
+@dynamic dName;
+@dynamic dID;
 @dynamic condition;
 @dynamic content;
 @dynamic gender;

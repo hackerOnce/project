@@ -8,8 +8,9 @@
 
 #import "WriteCaseShowTemplateViewController.h"
 #import "WriteCaseShowTemplateCell.h"
+#import "RWLabel.h"
 
-@interface WriteCaseShowTemplateViewController ()<NSFetchedResultsControllerDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface WriteCaseShowTemplateViewController ()<NSFetchedResultsControllerDelegate,UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -17,6 +18,7 @@
 @property (nonatomic,strong) NSDictionary *testData;
 
 @property (nonatomic,strong) CoreDataStack *coreDataStack;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewBottonConstraints;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic,strong) NSFetchedResultsController *fetchResultController;
 @end
@@ -26,7 +28,7 @@
 -(NSDictionary *)testData
 {
     if (!_testData) {
-        _testData = @{@"content":@"猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室",@"soucre":@"源自个人",@"create":@"张盗铃"};
+        _testData = @{@"content":@"猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室猪猪书速速手术室",@"soucre":@"源自个人",@"create":@"张盗铃"};
     }
     return _testData;
 }
@@ -69,7 +71,7 @@
     
     self.tableView.layer.borderWidth = 1;
     //self.tableView.estimatedRowHeight = 55;
-   // self.tableView.rowHeight = UITableViewAutomaticDimension;
+    //self.tableView.rowHeight = UITableViewAutomaticDimension;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -133,12 +135,28 @@
     
     //textView.text = template.content;
     //[textView layoutIfNeeded];
+    cell.accessoryType  = UITableViewCellAccessoryDetailButton;
+    cell.sourcelabel.text = self.testData[@"soucre"];
+    cell.createPeopleLabel.text = self.testData[@"create"];
+    [self setSubtitleForCell:cell];
+    
+}
+-(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    ///查看模板的详细内容
+    [self performSegueWithIdentifier:@"templateDetail" sender:nil];
 
-    cell.textView.text = self.testData[@"content"];
-    cell.sourceLabel.text = self.testData[@"soucre"];
-    cell.createPeople.text = self.testData[@"create"];
-    [cell.textView layoutIfNeeded];
-   // [cell setNeedsUpdateConstraints];
+}
+- (void)setSubtitleForCell:(WriteCaseShowTemplateCell *)cell {
+    
+    
+    NSString *subtitle = self.testData[@"content"];
+    
+    if (subtitle.length > 100) {
+        subtitle = [NSString stringWithFormat:@"%@...", [subtitle substringToIndex:100]];
+    }
+    
+    [cell.contentLabel setText:subtitle];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -149,9 +167,39 @@
 //    template.content = cell.textView.text;
 //    [self.showTemplateDelegate didSelectedTemplateWithNode:template];
 
-    WriteCaseShowTemplateCell *cell =(WriteCaseShowTemplateCell*) [tableView cellForRowAtIndexPath:indexPath];
-    [self.showTemplateDelegate didSelectedTemplateWithString:cell.textView.text];
+   // WriteCaseShowTemplateCell *cell =(WriteCaseShowTemplateCell*) [tableView cellForRowAtIndexPath:indexPath];
+   ///引用模板
+}
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self heightForBasicCellAtIndexPath:indexPath];
+}
+- (CGFloat)heightForBasicCellAtIndexPath:(NSIndexPath *)indexPath {
+    static WriteCaseShowTemplateCell *sizingCell = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sizingCell = [self.tableView dequeueReusableCellWithIdentifier:@"WriteShowTemplate"];
+    });
     
+    [self configureCell:sizingCell AtIndexPath:indexPath];
+    return [self calculateHeightForConfiguredSizingCell:sizingCell];
+}
+
+- (CGFloat)calculateHeightForConfiguredSizingCell:(UITableViewCell *)sizingCell {
+    
+    sizingCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableView.frame), CGRectGetHeight(sizingCell.bounds));
+
+    [sizingCell setNeedsLayout];
+    [sizingCell layoutIfNeeded];
+    
+    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height + 1.0f; // Add 1.0f for the cell separator height
+}
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewAutomaticDimension;
 }
 #pragma mask - fetch view controller delegate
 /// fetch result controller delegate

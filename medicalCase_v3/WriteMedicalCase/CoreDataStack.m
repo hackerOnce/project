@@ -116,7 +116,7 @@ static NSString *momdName = @"Model";
 
 #pragma mark - Core Data Saving support
 
-- (void)saveContext {
+- (void)saveContext{
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
     if (managedObjectContext != nil) {
         NSError *error = nil;
@@ -685,7 +685,7 @@ static NSString *momdName = @"Model";
             NSLog(@"没有病人所对应的病例类型的病例");
             return nil;
         }else {
-            NSLog(@"core data stack RecordBaseInfo:统一病人同一病例类型返回了多个病例");
+            NSLog(@"core data stack RecordBaseInfo:同一病人同一病例类型返回了多个病例");
             abort();
         }
     }else {

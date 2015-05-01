@@ -19,6 +19,9 @@
 
 - (void)saveContext;
 
+-(void)updatePatient:(Patient*)patient WithDictionary:(NSDictionary*)dataDic;
+
+
 -(NSArray*)fetchNSManagedObjectEntityWithName:(NSString*)entityName withNSPredicate:(NSPredicate*)predicate setUpFetchRequestResultType:(NSFetchRequestResultType)fetchResultType isSetUpResultType:(BOOL)isSetUpResultType setUpFetchRequestSortDescriptors:(NSArray*)sortDescriptors isSetupSortDescriptors:(BOOL)isSetupSortDescriptors;
 
 -(void)createManagedObjectTemplateWithDic:(NSDictionary*)dic  ForNodeWithNodeName:(NSString *)nodeName;

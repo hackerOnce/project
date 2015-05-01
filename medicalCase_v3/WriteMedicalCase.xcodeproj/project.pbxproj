@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4705A4381AF31C67007FD2B9 /* RWLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705A4371AF31C67007FD2B9 /* RWLabel.m */; };
+		4705A43B1AF32BD7007FD2B9 /* TemplateDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705A43A1AF32BD7007FD2B9 /* TemplateDetailViewController.m */; };
+		4705A43E1AF3359F007FD2B9 /* updateCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705A43D1AF3359F007FD2B9 /* updateCoreDataStack.m */; };
 		4705EFEF1AF1044B0050D47A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705EFEE1AF1044B0050D47A /* main.m */; };
 		4705EFF21AF1044B0050D47A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705EFF11AF1044B0050D47A /* AppDelegate.m */; };
 		4705EFF51AF1044B0050D47A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705EFF41AF1044B0050D47A /* ViewController.m */; };
@@ -91,6 +94,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4705A4361AF31C67007FD2B9 /* RWLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWLabel.h; sourceTree = "<group>"; };
+		4705A4371AF31C67007FD2B9 /* RWLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWLabel.m; sourceTree = "<group>"; };
+		4705A4391AF32BD7007FD2B9 /* TemplateDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateDetailViewController.h; sourceTree = "<group>"; };
+		4705A43A1AF32BD7007FD2B9 /* TemplateDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateDetailViewController.m; sourceTree = "<group>"; };
+		4705A43C1AF3359F007FD2B9 /* updateCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = updateCoreDataStack.h; sourceTree = "<group>"; };
+		4705A43D1AF3359F007FD2B9 /* updateCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = updateCoreDataStack.m; sourceTree = "<group>"; };
 		4705EFE91AF1044B0050D47A /* WriteMedicalCase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WriteMedicalCase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4705EFED1AF1044B0050D47A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4705EFEE1AF1044B0050D47A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -329,9 +338,13 @@
 		4705F0141AF104A40050D47A /* WriteCase */ = {
 			isa = PBXGroup;
 			children = (
+				4705A4361AF31C67007FD2B9 /* RWLabel.h */,
+				4705A4371AF31C67007FD2B9 /* RWLabel.m */,
 				478858EA1AF1FD06002CD361 /* CustomSegue.h */,
 				478858EB1AF1FD06002CD361 /* CustomSegue.m */,
 				4705F0121AF1049E0050D47A /* WriteCaseStoryboard.storyboard */,
+				4705A4391AF32BD7007FD2B9 /* TemplateDetailViewController.h */,
+				4705A43A1AF32BD7007FD2B9 /* TemplateDetailViewController.m */,
 				478858F01AF203B8002CD361 /* WriteCaseShowTemplateCell.h */,
 				478858F11AF203B8002CD361 /* WriteCaseShowTemplateCell.m */,
 				478858ED1AF1FE2C002CD361 /* WriteCaseShowTemplateViewController.h */,
@@ -497,6 +510,8 @@
 				4705F0B81AF10DF00050D47A /* Node.m */,
 				4705F0CE1AF124C90050D47A /* Model.xcdatamodeld */,
 				4705F0441AF107360050D47A /* CoreDataStack.m */,
+				4705A43C1AF3359F007FD2B9 /* updateCoreDataStack.h */,
+				4705A43D1AF3359F007FD2B9 /* updateCoreDataStack.m */,
 				4705F0431AF107360050D47A /* CoreDataStack.h */,
 			);
 			name = CoreData;
@@ -608,6 +623,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4705F0751AF1094C0050D47A /* SBJsonStreamWriterState.m in Sources */,
+				4705A43B1AF32BD7007FD2B9 /* TemplateDetailViewController.m in Sources */,
 				4705F0781AF1094C0050D47A /* SBJsonWriter.m in Sources */,
 				4705F0321AF1062C0050D47A /* IHGCDSocket.m in Sources */,
 				4705F0D01AF124C90050D47A /* Model.xcdatamodeld in Sources */,
@@ -624,6 +640,7 @@
 				4705F0CA1AF11B010050D47A /* WriteCaseSaveViewController.m in Sources */,
 				4705F0701AF1094C0050D47A /* SBJsonStreamParserAccumulator.m in Sources */,
 				4705F08E1AF109990050D47A /* WLKCaseNode.m in Sources */,
+				4705A4381AF31C67007FD2B9 /* RWLabel.m in Sources */,
 				4705F0741AF1094C0050D47A /* SBJsonStreamWriterAccumulator.m in Sources */,
 				4705F0A21AF10C040050D47A /* WLKTooles.m in Sources */,
 				4705F0771AF1094C0050D47A /* SBJsonUTF8Stream.m in Sources */,
@@ -649,6 +666,7 @@
 				4705EFF21AF1044B0050D47A /* AppDelegate.m in Sources */,
 				4705F0361AF1062C0050D47A /* NSData+Zip.m in Sources */,
 				4705F0A61AF10CD80050D47A /* RecordBaseInfo.m in Sources */,
+				4705A43E1AF3359F007FD2B9 /* updateCoreDataStack.m in Sources */,
 				478858E31AF1BC9E002CD361 /* AutoHeightTextView.m in Sources */,
 				4705F08F1AF109990050D47A /* WLKPatient.m in Sources */,
 				4705F0D51AF130250050D47A /* personInfoView.m in Sources */,

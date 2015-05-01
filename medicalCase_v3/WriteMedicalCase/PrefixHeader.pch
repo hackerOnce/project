@@ -37,6 +37,8 @@
 #import "ParentNode.h"
 #import "RecordBaseInfo.h"
 #import "Template.h"
+#import "Patient.h"
+#import "Doctor.h"
 
 #import "AutoHeightTextView.h"
 

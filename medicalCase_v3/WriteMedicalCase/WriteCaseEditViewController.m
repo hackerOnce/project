@@ -130,7 +130,9 @@
 -(void)sideButtonClicked:(UIButton*)sender
 {
     self.templateNameStr = self.selectedNode.nodeName;
-    
+    if (!self.templateNameStr) {
+        self.templateNameStr = self.labelString;
+    }
     [self performSegueWithIdentifier:@"customSegue" sender:nil];
 }
 
@@ -209,7 +211,6 @@
     
 }
 
-
 - (IBAction)saveToTemplate:(UIButton *)sender {
     
     UIButton *button = (UIButton*)sender;
@@ -218,7 +219,7 @@
     if (self.saveAsTemplate) {
         button.backgroundColor = [UIColor redColor];
     }else {
-        button.backgroundColor = [UIColor darkGrayColor];
+        button.backgroundColor = [UIColor whiteColor];
     }
 }
 
@@ -236,6 +237,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.titleLabel.text = self.labelString;
     
     UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
     id windowView = [keyWindow viewWithTag:20001];

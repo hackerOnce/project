@@ -12,6 +12,10 @@
 
 
 @implementation RecordBaseInfo
+@dynamic dID;
+@dynamic dName;
+@dynamic pID;
+@dynamic pName;
 
 @dynamic archivedTime;
 @dynamic caseContent;

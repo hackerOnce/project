@@ -37,7 +37,7 @@
     });
 
     //test for 病例管理
-    [self SaveTestDataToCoreData];
+   // [self SaveTestDataToCoreData];
     
      return YES;
 }
