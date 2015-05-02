@@ -114,7 +114,7 @@
     NSString *doctorID;
     NSString *doctorName;
     NSString *templateID;
-    
+    NSString *section;
     if ([dic.allKeys containsObject:@"dID"]) {
         doctorID = (NSString*)dic[@"dID"];
     }
@@ -124,11 +124,16 @@
     if ([dic.allKeys containsObject:@[@"templateID"]]) {
         templateID = (NSString*)dic[@"templateID"];
     }
-    if (doctorName == nil || doctorID == nil || templateID== nil) {
+    if ([dic.allKeys containsObject:@"section"]) {
+        section = dic[@"section"];
+    }
+
+    if (doctorName == nil || doctorID == nil) {
         abort();
     }
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"dName=%@ and dID=%@ and templateID=%@ ",doctorName,doctorID,templateID];
-    int count =  [self getManagedObjectEntityCountWithName:[Patient entityName] predicate:predicate];
+   // NSPredicate *predicate = [NSPredicate predicateWithFormat:@"dName=%@ and dID=%@ and templateID=%@ ",doctorName,doctorID,templateID];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"dName=%@ and dID=%@ and section = %@",doctorName,doctorID,section];
+    int count =  [self getManagedObjectEntityCountWithName:[Template entityName] predicate:predicate];
     
     if (count==0) {
         NSEntityDescription *templateDesc = [NSEntityDescription entityForName: [Template entityName]inManagedObjectContext:self.managedObjectContext];
@@ -139,6 +144,7 @@
         }
         if ([dic.allKeys containsObject:@"content"] && !([dic[@"content"] isEqualToString:@""])) {
             template.content = dic[@"content"];
+            NSLog(@"%@",template.content);
         }else {
             [self showAlertViewWithTitle:@"创建模板必须有内容"];
             failure(nil,@"创建模板必须有内容");
@@ -162,40 +168,60 @@
         if ([dic.allKeys containsObject:@"cardinalSymptom"]) {
             template.cardinalSymptom = dic[@"cardinalSymptom"];
         }
-        
+        if ([dic.allKeys containsObject:@"sourceType"]) {
+            template.sourceType = dic[@"sourceType"];
+        }
+        if ([dic.allKeys containsObject:@"createPeople"]) {
+            template.createPeople = dic[@"createPeople"];
+        }
+
         if ([dic.allKeys containsObject:@"nodeID"]) {
             template.nodeID = dic[@"nodeID"];
         }
         if ([dic.allKeys containsObject:@"updatedTime"]) {
-            template.nodeID = dic[@"updatedTime"];
-        }
-        if ([dic.allKeys containsObject:@"section"]) {
-            template.section = dic[@"section"];
+            template.updatedTime = dic[@"updatedTime"];
         }
         if ([dic.allKeys containsObject:@"dName"] && ![dic[@"dName"] isEqualToString:@""]) {
-            template.nodeID = dic[@"dName"];
+            template.dName = dic[@"dName"];
+            NSLog(@"template dName:%@",template.dName);
         }else{
             [self showAlertViewWithTitle:@"创建模板必须包含医生姓名"];
             failure(nil,@"创建模板必须包含医生姓名");
             
             //abort();
         }
+        if ([dic.allKeys containsObject:@[@"templateID"]]) {
+            template.templateID = (NSString*)dic[@"templateID"];
+        }
+
         if ([dic.allKeys containsObject:@"dID"] && (![dic[@"dID"] isEqualToString:@""])) {
-            template.section = dic[@"dID"];
+            template.dID = dic[@"dID"];
         }else {
             [self showAlertViewWithTitle:@"创建模板必须包含医生ID"];
             failure(nil,@"创建模板必须包含医生ID");
             
             // abort();
         }
+        if ([dic.allKeys containsObject:@"section"] && (![dic[@"section"] isEqualToString:@""])) {
+            template.section = dic[@"section"];
+        }else {
+            [self showAlertViewWithTitle:@"创建模板必须包含模板类别"];
+            failure(nil,@"创建模板必须包含模板类别");
+            
+            // abort();
+        }
+
+       // [self saveContext];
         [self saveContextFailToSave:^(NSError *error, NSString *errorInfo) {
             failure(error,errorInfo);
+            
+            
         } successfulCreated:^{
             successfully();
+            
         }];
  
-    }
-    
+    }    
 }
 -(void)updateTemplateInContext:(NSManagedObjectContext*)context ManagedObjectWithDataDic:(NSMutableDictionary*)dic  successfulCreated:(void (^)())successfully failedToCreated:(void (^)(NSError *error,NSString * errorInfo))failure
 {
@@ -223,17 +249,26 @@
         if (resultArray.count == 1) {
             if ([[resultArray firstObject] isMemberOfClass:[Template class]]) {
                 Template *template = (Template*)[resultArray firstObject];
+                if ([dic.allKeys containsObject:@"sourceType"]) {
+                    template.sourceType = dic[@"sourceType"];
+                }
+                if ([dic.allKeys containsObject:@"createPeople"]) {
+                    template.createPeople = dic[@"createPeople"];
+                }
                 if ([dic.allKeys containsObject:@"content"]) {
-                    NSString *content = dic[@"content"];
+                    template.content = dic[@"content"];
+                }
+                if ([dic.allKeys containsObject:@"updatedTime"]) {
+                    template.nodeID = dic[@"updatedTime"];
+                }
+
+                [self saveContextFailToSave:^(NSError *error, NSString *errorInfo) {
+                         failure(error,errorInfo);
                     
-                    template.content = content;
-                    
-                    [self saveContextFailToSave:^(NSError *error, NSString *errorInfo) {
-                        failure(error,errorInfo);
                     } successfulCreated:^{
                         successfully();
-                    }];
-                }
+                }];
+
             }
         }
     } failedToFetched:^(NSError *error, NSString *errorInfo) {

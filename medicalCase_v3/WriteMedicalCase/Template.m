@@ -13,7 +13,8 @@
 @implementation Template
 
 @dynamic templateID;
-
+@dynamic sourceType;
+@dynamic createPeople;
 @dynamic dName;
 @dynamic dID;
 @dynamic condition;

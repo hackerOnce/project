@@ -21,6 +21,9 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewBottonConstraints;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic,strong) NSFetchedResultsController *fetchResultController;
+
+@property (nonatomic,strong) NSArray *dataArray;
+@property (nonatomic,strong) NSString *titleStr;
 @end
 
 @implementation WriteCaseShowTemplateViewController
@@ -45,7 +48,11 @@
 -(void)setUpFetchViewController
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:[Template entityName]];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"node.nodeName = %@",self.templateName];
+   // NSPredicate *predicate = [NSPredicate predicateWithFormat:@"section = %@",self.templateName];
+    NSString *dID = @"99999";
+    NSString *dName = @"涨涨我";
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"dID=%@ and dName = %@",dID,dName];
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createDate" ascending:NO];
     
@@ -84,12 +91,46 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self createTemplateForTest];
+    
     [self setUpTableView];
     
     [self setUpFetchViewController];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectedCellLabel:) name:@"didSelectedTitleLabel" object:nil];
+    
+    ///for test
 }
+-(void)createTemplateForTest
+{
+    NSString *dID = @"99999";
+    NSString *dName = @"涨涨我";
+    NSString *section = @"主诉";
+    NSString *condition = @"性别男  心内科 心绞痛";
+    NSString *content = @"性别男  心内科 心绞痛创建于2015年10月";
+    NSString *updatedTime =[NSString stringWithFormat:@"%@",[self getSystemCurrentTime]];
+    NSString *createDate = [NSString stringWithFormat:@"%@",[self getSystemCurrentTime]];
+    NSString *sourceType = @"个人";
+    NSString *createPeople = @"网意商";
+    NSDictionary *dic = NSDictionaryOfVariableBindings(dID,dName,section,content,condition,updatedTime,sourceType,createPeople,createDate);
+    
+    [self.coreDataStack createTemplateManagedObjectWithDataDic:dic successfulCreated:^{
+        
+    } failedToCreated:^(NSError *error, NSString *errorInfo) {
+        
+    }];
+
+}
+-(NSDate*)getSystemCurrentTime
+{
+    NSDate *newDate = [NSDate date];
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    NSTimeInterval interval = [zone secondsFromGMTForDate:newDate];
+    NSDate *localDate = [newDate dateByAddingTimeInterval:interval];
+    
+    return localDate;
+}
+
 -(void)didSelectedCellLabel:(NSNotification*) notification
 {
     id tempID = [notification object];
@@ -99,6 +140,17 @@
         WLKCaseNode *tempNode =(WLKCaseNode*) [notification object];
         self.templateName = tempNode.nodeName;
     }
+//    NSPredicate *predicate;
+//    [self.coreDataStack fetchManagedObjectInContext:self.managedObjectContext WithEntityName:[Template entityName] withPredicate:predicate successfulFetched:^(NSArray *resultArray) {
+//        
+//        if (resultArray.count == 0) {
+//            
+//        }else {
+//            
+//        }
+//    } failedToFetched:^(NSError *error, NSString *errorInfo) {
+//        
+//    }];
     [self setUpFetchViewController];
     
     NSString *titleStr = [self.templateName stringByAppendingString:@"模板"];
@@ -108,17 +160,14 @@
 #pragma mask - table view delegate && data source
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-//    NSLog(@"section count %@", @(self.fetchResultController.sections.count));
-//    return self.fetchResultController.sections.count ;
-    return 1;
+    NSLog(@"section count %@", @(self.fetchResultController.sections.count));
+    return self.fetchResultController.sections.count ;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // return self.dataArray.count;
-//    id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchResultController.sections[section];
-//    
-//    return [sectionInfo numberOfObjects];
-    return 1;
+    id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchResultController.sections[section];
+    NSLog(@"%@",@([sectionInfo numberOfObjects]));
+    return [sectionInfo numberOfObjects];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -130,16 +179,21 @@
 }
 -(void)configureCell:(WriteCaseShowTemplateCell*)cell AtIndexPath:(NSIndexPath*)indexPath
 {
-    //Template *template = [self.fetchResultController objectAtIndexPath:indexPath];
-   // UITextView *textView = (UITextView*)[cell viewWithTag:1002];
+    Template *template = [self.fetchResultController objectAtIndexPath:indexPath];
     
-    //textView.text = template.content;
-    //[textView layoutIfNeeded];
     cell.accessoryType  = UITableViewCellAccessoryDetailButton;
-    cell.sourcelabel.text = self.testData[@"soucre"];
-    cell.createPeopleLabel.text = self.testData[@"create"];
-    [self setSubtitleForCell:cell];
+
+    cell.sourcelabel.text = template.sourceType;//来源个人，科室
+    cell.createPeopleLabel.text = template.createPeople;
     
+    NSString *content;
+    if (template.content.length > 100) {
+        content = [NSString stringWithFormat:@"%@...", [template.content substringToIndex:100]];
+    }else {
+        content = template.content;
+    }
+
+    cell.contentLabel.text  = content;
 }
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
@@ -147,28 +201,24 @@
     [self performSegueWithIdentifier:@"templateDetail" sender:nil];
 
 }
-- (void)setSubtitleForCell:(WriteCaseShowTemplateCell *)cell {
-    
-    
-    NSString *subtitle = self.testData[@"content"];
-    
-    if (subtitle.length > 100) {
-        subtitle = [NSString stringWithFormat:@"%@...", [subtitle substringToIndex:100]];
-    }
-    
-    [cell.contentLabel setText:subtitle];
-}
+//- (void)setContntStrForCell:(WriteCaseShowTemplateCell *)cell withTitleString:(NSString*)contentStr {
+//    
+//    
+//    NSString *subtitle = self.testData[@"content"];
+//    
+//    if (subtitle.length > 100) {
+//        subtitle = [NSString stringWithFormat:@"%@...", [subtitle substringToIndex:100]];
+//    }
+//    
+//    [cell.contentLabel setText:subtitle];
+//}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    Template *template = [self.fetchResultController objectAtIndexPath:indexPath];
-//    
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    template.content = cell.textView.text;
-//    [self.showTemplateDelegate didSelectedTemplateWithNode:template];
-
-   // WriteCaseShowTemplateCell *cell =(WriteCaseShowTemplateCell*) [tableView cellForRowAtIndexPath:indexPath];
-   ///引用模板
+    Template *template = [self.fetchResultController objectAtIndexPath:indexPath];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.showTemplateDelegate didSelectedTemplateWithNode:template withTitleStr:self.templateName];
 }
 
 
@@ -201,49 +251,49 @@
 {
     return UITableViewAutomaticDimension;
 }
-#pragma mask - fetch view controller delegate
-/// fetch result controller delegate
--(void)controllerWillChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.tableView beginUpdates];
-}
--(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
-{
-    switch (type) {
-        case NSFetchedResultsChangeInsert:{
-            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            break;
-        }
-        case NSFetchedResultsChangeDelete:{
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            break;
-        }
-        case NSFetchedResultsChangeUpdate:{
-            break;
-        }
-            
-        default:
-            break;
-    }
-}
--(void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
-{
-    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:sectionIndex];
-    switch (type) {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-            break;
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-            break;
-        default:
-            break;
-    }
-}
--(void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.tableView endUpdates];
-}
+//#pragma mask - fetch view controller delegate
+///// fetch result controller delegate
+//-(void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+//{
+//    [self.tableView beginUpdates];
+//}
+//-(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
+//{
+//    switch (type) {
+//        case NSFetchedResultsChangeInsert:{
+//            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//            break;
+//        }
+//        case NSFetchedResultsChangeDelete:{
+//            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//            break;
+//        }
+//        case NSFetchedResultsChangeUpdate:{
+//            break;
+//        }
+//            
+//        default:
+//            break;
+//    }
+//}
+//-(void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
+//{
+//    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:sectionIndex];
+//    switch (type) {
+//        case NSFetchedResultsChangeInsert:
+//            [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+//            break;
+//        case NSFetchedResultsChangeDelete:
+//            [self.tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+//            break;
+//        default:
+//            break;
+//    }
+//}
+//-(void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+//{
+//    [self.tableView endUpdates];
+//}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

@@ -28,7 +28,9 @@
 @property (nonatomic, retain) NSDate * createDate;
 @property (nonatomic, retain) NSString * section;
 @property (nonatomic, retain) Node *node;
-@property (nonatomic, retain) NSDate * updatedTime;
+@property (nonatomic, retain) NSString  * updatedTime;
 @property (nonatomic, retain) NSString * nodeID;
+@property (nonatomic,retain) NSString *sourceType;
+@property (nonatomic,retain) NSString *createPeople;
 
 @end

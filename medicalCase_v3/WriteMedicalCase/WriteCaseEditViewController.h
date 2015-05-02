@@ -16,7 +16,7 @@
 
 @property (nonatomic,strong) UIView *rightSideSlideView;
 @property (nonatomic) BOOL  rightSlideViewFlag;
-
+@property (nonatomic,strong) NSString *textViewContent;
 @end
 
 @protocol WriteCaseEditViewControllerDelegate <NSObject>

@@ -10,8 +10,9 @@
 #import "WriteCaseSaveCell.h"
 #import "WriteCaseEditViewController.h"
 #import "NSDate+Helper.h"
+#import "writeCaseFirstItemViewController.h"
 
-@interface WriteCaseSaveViewController ()<NSFetchedResultsControllerDelegate,WriteCaseSaveCellDelegate,UITableViewDelegate,UITableViewDataSource,WriteCaseEditViewControllerDelegate>
+@interface WriteCaseSaveViewController ()<NSFetchedResultsControllerDelegate,WriteCaseSaveCellDelegate,UITableViewDelegate,UITableViewDataSource,WriteCaseEditViewControllerDelegate,writeCaseFirstItemViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet UILabel *remainTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *caseTypeLabel;
@@ -36,6 +37,7 @@
 
 @property (nonatomic,strong) RecordBaseInfo *recordBaseInfo;
 //@property (nonatomic) BOOL hasContent;
+@property (nonatomic,strong) NSString *textViewContent;
 @end
 
 @implementation WriteCaseSaveViewController
@@ -470,11 +472,17 @@
     
     WriteCaseSaveCell *cell =(WriteCaseSaveCell*) [tableView cellForRowAtIndexPath:indexPath];
     UILabel *label =(UILabel*) [cell viewWithTag:1001];
+    UITextView *textView = (UITextView*)[cell viewWithTag:1002];
     self.selectedStr = label.text;
-    
+    self.textViewContent = textView.text;
     self.currentIndexPath = indexPath;
-    [self performSegueWithIdentifier:@"EditCaseSegue" sender:nil];
+    
+    if ([label.text isEqualToString:@"主诉"]) {
+        [self performSegueWithIdentifier:@"firstSegue" sender:nil];
 
+    }else{
+        [self performSegueWithIdentifier:@"EditCaseSegue" sender:nil];
+    }
 }
 #pragma mask - fetch view controller delegate
 /// fetch result controller delegate
@@ -537,20 +545,40 @@
         WriteCaseEditViewController *writeVC = (WriteCaseEditViewController*)[nav.viewControllers firstObject];
         writeVC.labelString = self.selectedStr;
         writeVC.Editdelegate = self;
+        writeVC.textViewContent = self.textViewContent;
     
+    }else if([segue.identifier isEqualToString:@"firstSegue"]){
+        self.isBeginEdit = YES;
+
+        UINavigationController *nav = (UINavigationController*)segue.destinationViewController;
+        
+        writeCaseFirstItemViewController *firstItem = (writeCaseFirstItemViewController*)[nav.viewControllers firstObject];
+        firstItem.titleString = self.selectedStr;
+        firstItem.delegate = self;
+        firstItem.textViewContent = self.textViewContent;
     }
 }
 #pragma mask - write delegate
 -(void)didWriteStringToMedicalRecord:(NSString *)writeString withKeyStr:(NSString *)keyStr
 {
-    [self updateButtonState];
     
     Node *tempNode = [self.fetchResultController objectAtIndexPath:self.currentIndexPath];
     tempNode.nodeContent = writeString;
     [self.coreDataStack saveContext];
     
-}
+    [self updateButtonState];
 
+}
+-(void)didWriteWithString:(NSString *)writeString
+{
+    
+    Node *tempNode = [self.fetchResultController objectAtIndexPath:self.currentIndexPath];
+    tempNode.nodeContent = writeString;
+    [self.coreDataStack saveContext];
+
+    [self updateButtonState];
+
+}
 -(void)dealloc
 {
     [self removeKeyboardObserver];

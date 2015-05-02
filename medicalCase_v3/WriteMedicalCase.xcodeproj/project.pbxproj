@@ -12,6 +12,7 @@
 		4705A4441AF37949007FD2B9 /* CoreDataStack+UpdateMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705A4431AF37949007FD2B9 /* CoreDataStack+UpdateMethods.m */; };
 		4705A47B1AF4619D007FD2B9 /* WriteCaseSaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705A47A1AF4619D007FD2B9 /* WriteCaseSaveViewController.m */; };
 		4705A47E1AF48659007FD2B9 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705A47D1AF48659007FD2B9 /* NSDate+Helper.m */; };
+		4705A4811AF4B41A007FD2B9 /* writeCaseFirstItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705A4801AF4B41A007FD2B9 /* writeCaseFirstItemViewController.m */; };
 		4705EFEF1AF1044B0050D47A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705EFEE1AF1044B0050D47A /* main.m */; };
 		4705EFF21AF1044B0050D47A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705EFF11AF1044B0050D47A /* AppDelegate.m */; };
 		4705EFF51AF1044B0050D47A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705EFF41AF1044B0050D47A /* ViewController.m */; };
@@ -104,6 +105,8 @@
 		4705A47A1AF4619D007FD2B9 /* WriteCaseSaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteCaseSaveViewController.m; sourceTree = "<group>"; };
 		4705A47C1AF48659007FD2B9 /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helper.h"; sourceTree = "<group>"; };
 		4705A47D1AF48659007FD2B9 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
+		4705A47F1AF4B41A007FD2B9 /* writeCaseFirstItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writeCaseFirstItemViewController.h; sourceTree = "<group>"; };
+		4705A4801AF4B41A007FD2B9 /* writeCaseFirstItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = writeCaseFirstItemViewController.m; sourceTree = "<group>"; };
 		4705EFE91AF1044B0050D47A /* WriteMedicalCase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WriteMedicalCase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4705EFED1AF1044B0050D47A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4705EFEE1AF1044B0050D47A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -348,6 +351,8 @@
 				478858EA1AF1FD06002CD361 /* CustomSegue.h */,
 				478858EB1AF1FD06002CD361 /* CustomSegue.m */,
 				4705F0121AF1049E0050D47A /* WriteCaseStoryboard.storyboard */,
+				4705A47F1AF4B41A007FD2B9 /* writeCaseFirstItemViewController.h */,
+				4705A4801AF4B41A007FD2B9 /* writeCaseFirstItemViewController.m */,
 				4705A4391AF32BD7007FD2B9 /* TemplateDetailViewController.h */,
 				4705A43A1AF32BD7007FD2B9 /* TemplateDetailViewController.m */,
 				478858F01AF203B8002CD361 /* WriteCaseShowTemplateCell.h */,
@@ -689,6 +694,7 @@
 				4705F0BB1AF10DF00050D47A /* TestNode.m in Sources */,
 				4705F0BD1AF10DF00050D47A /* ParentNode.m in Sources */,
 				4705F04D1AF1082C0050D47A /* RawDataProcess.m in Sources */,
+				4705A4811AF4B41A007FD2B9 /* writeCaseFirstItemViewController.m in Sources */,
 				4705F0841AF109870050D47A /* WLKCaseNodeTableViewConfig.m in Sources */,
 				4705F0BA1AF10DF00050D47A /* Doctor.m in Sources */,
 				4705F03C1AF1062C0050D47A /* MBProgressHUD.m in Sources */,

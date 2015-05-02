@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol WriteCaseShowTemplateViewControllerDelegate <NSObject>
--(void)didSelectedTemplateWithNode:(Template*)templated;
+-(void)didSelectedTemplateWithNode:(Template*)templated withTitleStr:(NSString*)titleStr;
 -(void)didSelectedTemplateWithString:(NSString*)str;
 
 @end

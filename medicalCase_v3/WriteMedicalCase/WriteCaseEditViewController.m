@@ -13,7 +13,6 @@
 #import "WriteCaseShowTemplateViewController.h"
 
 @interface WriteCaseEditViewController ()<UITableViewDelegate,UITableViewDataSource,WriteCaseShowTemplateViewControllerDelegate>
-@property (weak, nonatomic) IBOutlet personInfoView *autoHeighttextView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet AutoHeightTextView *autoHeightTextView;
 
@@ -73,7 +72,9 @@
     if (!_nodeChildArray) {
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         for (WLKCaseNode *tempNode in self.sourceNode.childNodes) {
-            [tempArray addObject:tempNode.nodeName];
+            if (tempNode.nodeName) {
+                [tempArray addObject:tempNode.nodeName];
+            }
         }
         _nodeChildArray = [NSArray arrayWithArray:tempArray];
     }
@@ -171,7 +172,9 @@
         _nodeChildDic = [[NSMutableDictionary alloc] init];
         for (int i=0; i< self.sourceNode.childNodes.count; i++) {
             NSString *tempStr = [self.nodeChildArray objectAtIndex:i];
-            [_nodeChildDic setObject:@"" forKey:tempStr];
+            if (tempStr) {
+                [_nodeChildDic setObject:@" " forKey:tempStr];
+            }
         }
     }
     return _nodeChildDic;
@@ -248,6 +251,9 @@
     }
     [self performSegueWithIdentifier:@"customSegue" sender:nil];
 
+    if (![self.textViewContent isEqualToString:@" "]) {
+        self.autoHeightTextView.text = self.textViewContent;
+    }
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -304,10 +310,10 @@
 }
 
 ///did selected template
--(void)didSelectedTemplateWithNode:(Template *)templated
+-(void)didSelectedTemplateWithNode:(Template *)templated withTitleStr:(NSString *)titleStr
 {
     
-    NSString *nodeName = templated.node.nodeName;
+    NSString *nodeName = titleStr;
     NSString *nodesString = templated.content;
     
     if ([nodeName isEqualToString:self.labelString]) {
