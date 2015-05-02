@@ -9,6 +9,7 @@
 #import "WriteCaseShowTemplateViewController.h"
 #import "WriteCaseShowTemplateCell.h"
 #import "RWLabel.h"
+#import "TemplateDetailViewController.h"
 
 @interface WriteCaseShowTemplateViewController ()<NSFetchedResultsControllerDelegate,UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 
@@ -24,6 +25,8 @@
 
 @property (nonatomic,strong) NSArray *dataArray;
 @property (nonatomic,strong) NSString *titleStr;
+
+@property (nonatomic,strong) Template *currentTemplate;
 @end
 
 @implementation WriteCaseShowTemplateViewController
@@ -198,7 +201,10 @@
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
     ///查看模板的详细内容
-    [self performSegueWithIdentifier:@"templateDetail" sender:nil];
+    Template *template = [self.fetchResultController objectAtIndexPath:indexPath];
+    self.currentTemplate = template;
+    
+    [self performSegueWithIdentifier:@"templateContent" sender:nil];
 
 }
 //- (void)setContntStrForCell:(WriteCaseShowTemplateCell *)cell withTitleString:(NSString*)contentStr {
@@ -297,7 +303,10 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
+    if ([segue.identifier isEqualToString:@"templateContent"]) {
+        TemplateDetailViewController *templateVC = (TemplateDetailViewController*)segue.destinationViewController;
+        templateVC.template = self.currentTemplate;
+    }
 }
 
 @end

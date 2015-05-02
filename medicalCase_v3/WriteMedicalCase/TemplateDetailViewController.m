@@ -7,9 +7,13 @@
 //
 
 #import "TemplateDetailViewController.h"
+#import "RWLabel.h"
 
 @interface TemplateDetailViewController ()
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet RWLabel *createPeopleLabel;
+@property (weak, nonatomic) IBOutlet RWLabel *sourceLabel;
+@property (weak, nonatomic) IBOutlet RWLabel *conditionLabel;
+@property (weak, nonatomic) IBOutlet RWLabel *contentLabel;
 
 @end
 
@@ -17,22 +21,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.createPeopleLabel.text = self.template.createPeople;
+    self.sourceLabel.text = self.template.sourceType;
+    self.conditionLabel.text = self.template.condition;
+    self.contentLabel.text  = self.template.content;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

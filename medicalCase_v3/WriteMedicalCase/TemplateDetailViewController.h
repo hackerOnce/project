@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface TemplateDetailViewController : UIViewController
-
+@property (nonatomic,strong) Template *template;
 @end
