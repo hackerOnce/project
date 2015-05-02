@@ -1,5 +1,5 @@
 //
-//  updateCoreDataStack.h
+//  CoreDataStack+UpdateMethods.h
 //  WriteMedicalCase
 //
 //  Created by GK on 15/5/1.
@@ -8,7 +8,9 @@
 
 #import "CoreDataStack.h"
 
-@interface updateCoreDataStack : CoreDataStack
+@interface CoreDataStack (UpdateMethods)
+
+-(int)getManagedObjectEntityCountWithName:(NSString*)entityName predicate:(NSPredicate *)predicate;
 
 ///create patient NSmanagedObject
 -(void)createPatientManagedObjectWithDataDic:(NSMutableDictionary*)dataDic failedToCreated:(void (^)(NSError *error,NSString * errorInfo))failure successfulCreated:(void (^)())successfully;
@@ -36,4 +38,10 @@
 
 ///update doctor info
 -(void)updateDoctorEntityWithDataDic:(NSDictionary*)dataDic inContext:(NSManagedObjectContext*)context successfulUpdated:(void (^)())successfully failedToUpdated:(void (^)(NSError *error,NSString * errorInfo))failure;
+
+
+
+/// fetch a managedobject
+-(void)fetchManagedObjectInContext:(NSManagedObjectContext*)context  WithEntityName:(NSString*)entityString withPredicate:(NSPredicate*)predicate successfulFetched:(void (^)(NSArray *resultArray))successfully failedToFetched:(void (^)(NSError *error,NSString * errorInfo))failure;
+
 @end

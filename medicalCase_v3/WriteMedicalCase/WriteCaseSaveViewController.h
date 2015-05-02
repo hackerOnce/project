@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface WriteCaseSaveViewController : UIViewController
-@property (nonatomic,strong) RecordBaseInfo *recordCase;
+@property (nonatomic,strong) NSString *caseType;
 
 @end

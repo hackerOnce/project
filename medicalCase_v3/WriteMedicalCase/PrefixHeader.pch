@@ -39,9 +39,10 @@
 #import "Template.h"
 #import "Patient.h"
 #import "Doctor.h"
-
+//#import "updateCoreDataStack.h"
 #import "AutoHeightTextView.h"
-
+#import "CoreDataStack+UpdateMethods.h"
+#import "NSDate+Helper.h"
 #pragma mark - data center import
 //#import "WLKDataCenterImport.h"
 

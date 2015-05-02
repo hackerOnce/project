@@ -451,6 +451,13 @@ static NSString *momdName = @"Model";
     if ([dataDic.allKeys containsObject:@"residentDoctorID"]) {
         patient.residentDoctorID = dataDic[@"residentDoctorID"];
     }
+    if ([dataDic.allKeys containsObject:@"pName"]) {
+        patient.pName = (NSString*)dataDic[@"pName"];
+    }
+    if ([dataDic.allKeys containsObject:@"pID"]) {
+        patient.pID = (NSString*)dataDic[@"pID"];
+    }
+
     
     if ([dataDic.allKeys containsObject:@"attendingPhysicianDoctorName"]) {
         patient.attendingPhysicianDoctorName = dataDic[@"attendingPhysicianDoctorName"];
@@ -468,6 +475,10 @@ static NSString *momdName = @"Model";
     if ([dataDic.allKeys containsObject:@"pName"]) {
         patient.pName = (NSString*)dataDic[@"pName"];
     }
+    if ([dataDic.allKeys containsObject:@"pID"]) {
+        patient.pID = (NSString*)dataDic[@"pID"];
+    }
+
     if ([dataDic.allKeys containsObject:@"pGender"]) {
         patient.pGender = (NSString*)dataDic[@"pGender"];
     }

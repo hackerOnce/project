@@ -16,6 +16,7 @@
 @dynamic dName;
 @dynamic pID;
 @dynamic pName;
+@dynamic isCompleted;
 
 @dynamic archivedTime;
 @dynamic caseContent;

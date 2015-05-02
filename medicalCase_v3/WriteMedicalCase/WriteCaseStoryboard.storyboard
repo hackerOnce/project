@@ -41,7 +41,7 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="leftUpSaveButtonClicked:" destination="fAI-x7-5G4" eventType="touchUpInside" id="8XH-RK-mKH"/>
+                                                    <action selector="saveOrCommit:" destination="fAI-x7-5G4" eventType="touchUpInside" id="6EG-9h-7N9"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -163,8 +163,8 @@
                     <connections>
                         <outlet property="caseTypeLabel" destination="XrK-Eg-OQt" id="xLT-6t-pcQ"/>
                         <outlet property="currentTimeLabel" destination="Fsv-ph-3RW" id="AL2-li-L3F"/>
-                        <outlet property="leftUpSaveButton" destination="LcG-q3-TUg" id="obx-4B-Ti8"/>
                         <outlet property="remainTimeLabel" destination="wvF-2c-P58" id="aIF-Na-AtR"/>
+                        <outlet property="saveButton" destination="LcG-q3-TUg" id="wgT-Nm-R5M"/>
                         <outlet property="tableView" destination="ezX-CJ-NxF" id="8om-ND-V0V"/>
                         <segue destination="K2v-tp-jw9" kind="presentation" identifier="EditCaseSegue" modalTransitionStyle="coverVertical" id="Ajc-LH-Lyi"/>
                     </connections>

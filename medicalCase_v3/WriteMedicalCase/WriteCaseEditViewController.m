@@ -62,7 +62,7 @@
     if (self.saveAsTemplate) {
         //存储为模板
     }
-    [self.Editdelegate didWriteStringToMedicalRecord:self.autoHeightTextView.text];
+    [self.Editdelegate didWriteStringToMedicalRecord:self.autoHeightTextView.text withKeyStr:self.labelString];
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];

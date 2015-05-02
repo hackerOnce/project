@@ -12,6 +12,9 @@
 @class Doctor, Patient;
 
 @interface RecordBaseInfo : NSManagedObject
+
+@property (nonatomic, retain) NSString * isCompleted;
+
 @property (nonatomic, retain) NSString * dID;
 @property (nonatomic, retain) NSString * dName;
 @property (nonatomic, retain) NSString * pID;

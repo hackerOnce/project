@@ -20,7 +20,7 @@
 @end
 
 @protocol WriteCaseEditViewControllerDelegate <NSObject>
--(void)didWriteStringToMedicalRecord:(NSString*)writeString;
+-(void)didWriteStringToMedicalRecord:(NSString*)writeString withKeyStr:(NSString *)keyStr;
 
 
 @end

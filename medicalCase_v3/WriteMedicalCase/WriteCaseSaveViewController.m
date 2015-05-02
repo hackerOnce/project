@@ -9,9 +9,10 @@
 #import "WriteCaseSaveViewController.h"
 #import "WriteCaseSaveCell.h"
 #import "WriteCaseEditViewController.h"
+#import "NSDate+Helper.h"
 
 @interface WriteCaseSaveViewController ()<NSFetchedResultsControllerDelegate,WriteCaseSaveCellDelegate,UITableViewDelegate,UITableViewDataSource,WriteCaseEditViewControllerDelegate>
-@property (weak, nonatomic) IBOutlet UIButton *leftUpSaveButton;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet UILabel *remainTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *caseTypeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *currentTimeLabel;
@@ -32,26 +33,56 @@
 @property (nonatomic,strong) NSString *selectedStr;
 
 @property (nonatomic) BOOL isBeginEdit;
+
+@property (nonatomic,strong) RecordBaseInfo *recordBaseInfo;
+//@property (nonatomic) BOOL hasContent;
 @end
 
 @implementation WriteCaseSaveViewController
-- (IBAction)leftUpSaveButtonClicked:(UIButton *)sender
+///test data
+
+-(NSDictionary*)testData
 {
-    UIButton *button = (UIButton*)sender;
-    NSString *buttonTitle = button.titleLabel.text;
-    
-}
--(void)setRecordCase:(RecordBaseInfo *)recordCase
-{
-    _recordCase = recordCase;
-    
-    if (_recordCase.caseContent == nil) {
-        _recordCase.caseContent = @"";
+    NSString *pID = @"88888";
+    NSString *pName = @"张三";
+    NSString *dID = @"99999";
+    NSString *dName = @"涨涨我";
+    NSString *caseType;
+    if (self.caseType) {
+        caseType = self.caseType;
+    }else {
+        caseType = @"error";
     }
-    NSDictionary *dic =[self convertJSONDataToList:[self convertStringToJSONData:_recordCase.caseContent]];
+
+    return NSDictionaryOfVariableBindings(pID,pName,dID,dName);
+}
+- (IBAction)saveOrCommit:(UIButton *)sender {
+    
+    [self.coreDataStack saveContext];
+
+    [self.coreDataStack createMedicalCaseManagedObjectWithDataDic:[self getContentDic] failedToCreated:^(NSError *error, NSString *errorInfo) {
+        
+    } successfulCreated:^{
+        
+    }];
+    
+    UIButton *button = (UIButton*)sender;
+    if ([button.titleLabel.text isEqualToString:@"保存"]) {
+        
+    }else if([button.titleLabel.text isEqualToString:@"提交"]){
+        
+    }
+}
+-(void)setRecordBaseInfo:(RecordBaseInfo *)recordBaseInfo
+{
+    _recordBaseInfo = recordBaseInfo;
+    
+    if (_recordBaseInfo.caseContent == nil || [_recordBaseInfo.caseContent isEqualToString:@""]) {
+        abort();
+    }
+    NSDictionary *dic =[self convertJSONDataToList:[self convertStringToJSONData:_recordBaseInfo.caseContent]];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"nodeName = %@",@"入院记录"];
-    //NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"nodeIndex" ascending:YES];
     
     NSArray *resultA = [self.coreDataStack fetchNSManagedObjectEntityWithName:[ParentNode entityName] withNSPredicate:predicate setUpFetchRequestResultType:0 isSetUpResultType:NO setUpFetchRequestSortDescriptors:nil isSetupSortDescriptors:NO];
     if (resultA.count == 1) {
@@ -64,7 +95,67 @@
     }else {
         abort();
     }
+
+}
+
+-(NSMutableDictionary*)getContentDic
+{
+    NSMutableDictionary *dic =[NSMutableDictionary dictionaryWithDictionary:[self testData]];
+
+    NSString *caseContent;
+    NSString *caseState;
+    BOOL hasContent = NO;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"nodeName = %@",@"入院记录"];
+    //NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"nodeIndex" ascending:YES];
     
+    NSArray *resultA = [self.coreDataStack fetchNSManagedObjectEntityWithName:[ParentNode entityName] withNSPredicate:predicate setUpFetchRequestResultType:0 isSetUpResultType:NO setUpFetchRequestSortDescriptors:nil isSetupSortDescriptors:NO];
+    if (resultA.count == 1) {
+        ParentNode *parentNode = (ParentNode*)[resultA firstObject];
+        for (Node *node in parentNode.nodes.array) {
+            [dic setObject:node.nodeContent forKey:node.nodeName];
+            if ([node.nodeContent isEqualToString:node.nodeName] || [node.nodeContent isEqualToString:@""]) {
+                caseState  = @"未完整创建";
+                hasContent = YES;
+            }
+        }
+       caseContent =[self convertJSONDataToString:[self convertToJSONDataFromList:dic]];
+    }
+    if (caseContent == nil){
+        abort();
+    }
+    if (hasContent) {
+        [self.saveButton setTitle:@"保存" forState:UIControlStateNormal];
+        caseState  = @"未完整创建";
+    }else {
+        [self.saveButton setTitle:@"提交" forState:UIControlStateNormal];
+        caseState  = @"未提交";
+    }
+    [dic setObject:caseContent forKey:@"caseContent"];
+    [dic setObject:caseState forKey:@"caseState"];
+    return dic;
+}
+-(void)updateButtonState
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"nodeName = %@",@"入院记录"];
+    //NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"nodeIndex" ascending:YES];
+    BOOL hasContent = NO;
+    NSArray *resultA = [self.coreDataStack fetchNSManagedObjectEntityWithName:[ParentNode entityName] withNSPredicate:predicate setUpFetchRequestResultType:0 isSetUpResultType:NO setUpFetchRequestSortDescriptors:nil isSetupSortDescriptors:NO];
+    if (resultA.count == 1) {
+        ParentNode *parentNode = (ParentNode*)[resultA firstObject];
+        for (Node *node in parentNode.nodes.array) {
+            if ([node.nodeContent isEqualToString:node.nodeName] || [node.nodeContent isEqualToString:@""]) {
+                hasContent = YES;
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (hasContent) {
+                [self.saveButton setTitle:@"保存" forState:UIControlStateNormal];
+            }else {
+                [self.saveButton setTitle:@"提交" forState:UIControlStateNormal];
+            }
+
+        });
+    }
 }
 
 ///core data
@@ -78,15 +169,69 @@
     return _coreDataStack;
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self updateButtonState];
+    
+    self.caseTypeLabel.text =self.caseType?self.caseType:@"入院病历";
+//    if (!self.caseType) {
+//        abort();
+//    }
 
+    self.remainTimeLabel.text =[NSString stringWithFormat:@"剩余时间:%@",[self getRemainTime]];
+    self.currentTimeLabel.text  =  [self getYearAndMonthWithDateStr:[NSDate date]];
+}
+-(NSString*)getYearAndMonthWithDateStr:(NSDate*)date
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    
+    NSString *dateStr = [formatter stringFromDate:date];
+    
+    NSLog(@"date : %@",dateStr);
+    
+    return dateStr;
+}
+
+-(NSString *)getRemainTime
+{
+    
+    return  @"jdjdj";
+
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self addKeyboardObserver];
-    [self setUpFetchViewController];
+    
+    
     [self setUpTableView];
     
     self.isBeginEdit = NO;
+   // self.hasContent = NO;
+//    NSString *pID = @"88888";
+//    NSString *pName = @"张三";
+//    NSString *dID = @"99999";
+//    NSString *dName = @"涨涨我";
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"pID=%@ and pName=%@ and dID=%@ and dName=%@",pID,pName,dID,dName];
+//    [self.coreDataStack fetchManagedObjectInContext:self.managedObjectContext WithEntityName:[RecordBaseInfo entityName] withPredicate:predicate successfulFetched:^(NSArray *resultArray) {
+//        
+//        if (resultArray.count == 0) {
+//            
+//        }else {
+//            if (resultArray.count == 1) {
+//                RecordBaseInfo *recordBaseInfo = (RecordBaseInfo*)[resultArray firstObject];
+//                self.recordBaseInfo = recordBaseInfo;
+//            }
+//        }
+//
+//    } failedToFetched:^(NSError *error, NSString *errorInfo) {
+//        
+//    }];
+    [self setUpFetchViewController];
+
 }
 -(void)addKeyboardObserver
 {
@@ -102,7 +247,6 @@
     self.tableView.layer.shadowColor = [UIColor darkGrayColor].CGColor;
     
     self.tableView.layer.borderWidth = 1;
-    // self.tableView.layer.borderColor = [UIColor darkGrayColor].CGColor;
     self.tableView.estimatedRowHeight = 55;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
@@ -126,12 +270,8 @@
         NSLog(@"error: %@",error.description);
         abort();
     }else {
-        // Template *template = [self.fetchResultController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        // NSLog(@"template condition : %@",template.condition);
         [self.tableView reloadData];
-        
     }
-    
 }
 
 -(void)keyboardWillShow:(NSNotification*)notificationInfo
@@ -302,7 +442,10 @@
     //        textView.text = [self.dataArray objectAtIndex:indexPath.row];
     //    }
 }
-
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
 #pragma mask - WriteCaseSaveCell  delegate
 -(void)textViewCell:(WriteCaseSaveCell *)cell didChangeText:(NSString *)text
 {
@@ -314,6 +457,7 @@
 }
 -(void)textViewDidBeginEditing:(UITextView *)textView withCellIndexPath:(NSIndexPath *)indexPath
 {
+    [self updateButtonState];
     self.isBeginEdit = NO;
 
     self.currentIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
@@ -397,8 +541,10 @@
     }
 }
 #pragma mask - write delegate
--(void)didWriteStringToMedicalRecord:(NSString *)writeString
+-(void)didWriteStringToMedicalRecord:(NSString *)writeString withKeyStr:(NSString *)keyStr
 {
+    [self updateButtonState];
+    
     Node *tempNode = [self.fetchResultController objectAtIndexPath:self.currentIndexPath];
     tempNode.nodeContent = writeString;
     [self.coreDataStack saveContext];

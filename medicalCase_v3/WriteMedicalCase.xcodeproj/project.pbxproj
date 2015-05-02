@@ -9,7 +9,9 @@
 /* Begin PBXBuildFile section */
 		4705A4381AF31C67007FD2B9 /* RWLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705A4371AF31C67007FD2B9 /* RWLabel.m */; };
 		4705A43B1AF32BD7007FD2B9 /* TemplateDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705A43A1AF32BD7007FD2B9 /* TemplateDetailViewController.m */; };
-		4705A43E1AF3359F007FD2B9 /* updateCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705A43D1AF3359F007FD2B9 /* updateCoreDataStack.m */; };
+		4705A4441AF37949007FD2B9 /* CoreDataStack+UpdateMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705A4431AF37949007FD2B9 /* CoreDataStack+UpdateMethods.m */; };
+		4705A47B1AF4619D007FD2B9 /* WriteCaseSaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705A47A1AF4619D007FD2B9 /* WriteCaseSaveViewController.m */; };
+		4705A47E1AF48659007FD2B9 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705A47D1AF48659007FD2B9 /* NSDate+Helper.m */; };
 		4705EFEF1AF1044B0050D47A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705EFEE1AF1044B0050D47A /* main.m */; };
 		4705EFF21AF1044B0050D47A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705EFF11AF1044B0050D47A /* AppDelegate.m */; };
 		4705EFF51AF1044B0050D47A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705EFF41AF1044B0050D47A /* ViewController.m */; };
@@ -71,7 +73,6 @@
 		4705F0BF1AF10DF00050D47A /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705F0B81AF10DF00050D47A /* Node.m */; };
 		4705F0C21AF10E580050D47A /* KeyValueObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705F0C11AF10E580050D47A /* KeyValueObserver.m */; };
 		4705F0C41AF10EE80050D47A /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4705F0C31AF10EE80050D47A /* libz.1.2.5.dylib */; };
-		4705F0CA1AF11B010050D47A /* WriteCaseSaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705F0C91AF11B010050D47A /* WriteCaseSaveViewController.m */; };
 		4705F0CD1AF11B220050D47A /* WriteCaseSaveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4705F0CC1AF11B220050D47A /* WriteCaseSaveCell.m */; };
 		4705F0D01AF124C90050D47A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4705F0CE1AF124C90050D47A /* Model.xcdatamodeld */; };
 		4705F0D21AF12C320050D47A /* coreDataTestData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4705F0D11AF12C320050D47A /* coreDataTestData.plist */; };
@@ -98,8 +99,11 @@
 		4705A4371AF31C67007FD2B9 /* RWLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWLabel.m; sourceTree = "<group>"; };
 		4705A4391AF32BD7007FD2B9 /* TemplateDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateDetailViewController.h; sourceTree = "<group>"; };
 		4705A43A1AF32BD7007FD2B9 /* TemplateDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateDetailViewController.m; sourceTree = "<group>"; };
-		4705A43C1AF3359F007FD2B9 /* updateCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = updateCoreDataStack.h; sourceTree = "<group>"; };
-		4705A43D1AF3359F007FD2B9 /* updateCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = updateCoreDataStack.m; sourceTree = "<group>"; };
+		4705A4421AF37949007FD2B9 /* CoreDataStack+UpdateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreDataStack+UpdateMethods.h"; sourceTree = "<group>"; };
+		4705A4431AF37949007FD2B9 /* CoreDataStack+UpdateMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CoreDataStack+UpdateMethods.m"; sourceTree = "<group>"; };
+		4705A47A1AF4619D007FD2B9 /* WriteCaseSaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteCaseSaveViewController.m; sourceTree = "<group>"; };
+		4705A47C1AF48659007FD2B9 /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helper.h"; sourceTree = "<group>"; };
+		4705A47D1AF48659007FD2B9 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
 		4705EFE91AF1044B0050D47A /* WriteMedicalCase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WriteMedicalCase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4705EFED1AF1044B0050D47A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4705EFEE1AF1044B0050D47A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -223,7 +227,6 @@
 		4705F0C11AF10E580050D47A /* KeyValueObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyValueObserver.m; sourceTree = "<group>"; };
 		4705F0C31AF10EE80050D47A /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		4705F0C81AF11B010050D47A /* WriteCaseSaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteCaseSaveViewController.h; sourceTree = "<group>"; };
-		4705F0C91AF11B010050D47A /* WriteCaseSaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteCaseSaveViewController.m; sourceTree = "<group>"; };
 		4705F0CB1AF11B220050D47A /* WriteCaseSaveCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteCaseSaveCell.h; sourceTree = "<group>"; };
 		4705F0CC1AF11B220050D47A /* WriteCaseSaveCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteCaseSaveCell.m; sourceTree = "<group>"; };
 		4705F0CF1AF124C90050D47A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -298,6 +301,8 @@
 				4705EFF41AF1044B0050D47A /* ViewController.m */,
 				4705F09E1AF10BA70050D47A /* Constants.h */,
 				478858E11AF1BC9E002CD361 /* AutoHeightTextView.h */,
+				4705A47C1AF48659007FD2B9 /* NSDate+Helper.h */,
+				4705A47D1AF48659007FD2B9 /* NSDate+Helper.m */,
 				478858E21AF1BC9E002CD361 /* AutoHeightTextView.m */,
 				4705EFF61AF1044B0050D47A /* Main.storyboard */,
 				4705F0141AF104A40050D47A /* WriteCase */,
@@ -351,8 +356,8 @@
 				478858EE1AF1FE2C002CD361 /* WriteCaseShowTemplateViewController.m */,
 				4705F0D61AF1312F0050D47A /* WriteCaseEditViewController.h */,
 				4705F0D71AF1312F0050D47A /* WriteCaseEditViewController.m */,
+				4705A47A1AF4619D007FD2B9 /* WriteCaseSaveViewController.m */,
 				4705F0C81AF11B010050D47A /* WriteCaseSaveViewController.h */,
-				4705F0C91AF11B010050D47A /* WriteCaseSaveViewController.m */,
 				4705F0CB1AF11B220050D47A /* WriteCaseSaveCell.h */,
 				4705F0CC1AF11B220050D47A /* WriteCaseSaveCell.m */,
 			);
@@ -509,9 +514,9 @@
 				4705F0B71AF10DF00050D47A /* Node.h */,
 				4705F0B81AF10DF00050D47A /* Node.m */,
 				4705F0CE1AF124C90050D47A /* Model.xcdatamodeld */,
+				4705A4421AF37949007FD2B9 /* CoreDataStack+UpdateMethods.h */,
+				4705A4431AF37949007FD2B9 /* CoreDataStack+UpdateMethods.m */,
 				4705F0441AF107360050D47A /* CoreDataStack.m */,
-				4705A43C1AF3359F007FD2B9 /* updateCoreDataStack.h */,
-				4705A43D1AF3359F007FD2B9 /* updateCoreDataStack.m */,
 				4705F0431AF107360050D47A /* CoreDataStack.h */,
 			);
 			name = CoreData;
@@ -628,6 +633,7 @@
 				4705F0321AF1062C0050D47A /* IHGCDSocket.m in Sources */,
 				4705F0D01AF124C90050D47A /* Model.xcdatamodeld in Sources */,
 				4705F08D1AF109990050D47A /* WLKCase.m in Sources */,
+				4705A47E1AF48659007FD2B9 /* NSDate+Helper.m in Sources */,
 				4705F0D81AF1312F0050D47A /* WriteCaseEditViewController.m in Sources */,
 				4705F0341AF1062C0050D47A /* MessageObject+DY.m in Sources */,
 				478858EF1AF1FE2C002CD361 /* WriteCaseShowTemplateViewController.m in Sources */,
@@ -637,7 +643,6 @@
 				4705F0711AF1094C0050D47A /* SBJsonStreamParserAdapter.m in Sources */,
 				4705F0371AF1062C0050D47A /* Reachability.m in Sources */,
 				4705F0351AF1062C0050D47A /* MessageObject.m in Sources */,
-				4705F0CA1AF11B010050D47A /* WriteCaseSaveViewController.m in Sources */,
 				4705F0701AF1094C0050D47A /* SBJsonStreamParserAccumulator.m in Sources */,
 				4705F08E1AF109990050D47A /* WLKCaseNode.m in Sources */,
 				4705A4381AF31C67007FD2B9 /* RWLabel.m in Sources */,
@@ -645,6 +650,7 @@
 				4705F0A21AF10C040050D47A /* WLKTooles.m in Sources */,
 				4705F0771AF1094C0050D47A /* SBJsonUTF8Stream.m in Sources */,
 				4705F0BE1AF10DF00050D47A /* Template.m in Sources */,
+				4705A47B1AF4619D007FD2B9 /* WriteCaseSaveViewController.m in Sources */,
 				4705F0731AF1094C0050D47A /* SBJsonStreamWriter.m in Sources */,
 				4705F0901AF109990050D47A /* WLKTemplate.m in Sources */,
 				4705F0451AF107360050D47A /* CoreDataStack.m in Sources */,
@@ -663,10 +669,10 @@
 				4705F0981AF109C10050D47A /* WLKTableView.m in Sources */,
 				4705F04E1AF1082C0050D47A /* XMLReader.m in Sources */,
 				4705F0971AF109C10050D47A /* UIView+FrameExtends.m in Sources */,
+				4705A4441AF37949007FD2B9 /* CoreDataStack+UpdateMethods.m in Sources */,
 				4705EFF21AF1044B0050D47A /* AppDelegate.m in Sources */,
 				4705F0361AF1062C0050D47A /* NSData+Zip.m in Sources */,
 				4705F0A61AF10CD80050D47A /* RecordBaseInfo.m in Sources */,
-				4705A43E1AF3359F007FD2B9 /* updateCoreDataStack.m in Sources */,
 				478858E31AF1BC9E002CD361 /* AutoHeightTextView.m in Sources */,
 				4705F08F1AF109990050D47A /* WLKPatient.m in Sources */,
 				4705F0D51AF130250050D47A /* personInfoView.m in Sources */,
