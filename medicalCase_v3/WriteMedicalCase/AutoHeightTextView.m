@@ -69,6 +69,8 @@
     
     // update the height constraint
     self.heightConstraint.constant = newHeight;
+    
+    
     }
 
 
