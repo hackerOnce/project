@@ -36,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.preferredContentSize = CGSizeMake(800, 600);
+   // self.preferredContentSize = CGSizeMake(800, 600);
     
     [self setUpFetchViewController];
 

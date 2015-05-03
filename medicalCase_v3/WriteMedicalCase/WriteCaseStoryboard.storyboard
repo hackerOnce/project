@@ -569,6 +569,7 @@
                             <constraint firstItem="uEU-U8-ezM" firstAttribute="leading" secondItem="7P1-Ac-cMw" secondAttribute="leading" id="zXM-pR-sYs"/>
                         </constraints>
                     </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="600" height="600"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="cS8-GN-qTc" id="F8x-ma-KhE"/>
