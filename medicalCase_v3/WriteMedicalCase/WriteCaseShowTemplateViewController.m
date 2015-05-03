@@ -13,7 +13,7 @@
 
 @interface WriteCaseShowTemplateViewController ()<NSFetchedResultsControllerDelegate,UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic,strong) NSDictionary *testData;
@@ -48,14 +48,18 @@
     _coreDataStack = [[CoreDataStack alloc] init];
     return _coreDataStack;
 }
--(void)setUpFetchViewController
+-(void)setUpFetchViewControllerWithSearchText:(NSString*)searchText;
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:[Template entityName]];
    // NSPredicate *predicate = [NSPredicate predicateWithFormat:@"section = %@",self.templateName];
     NSString *dID = @"99999";
     NSString *dName = @"涨涨我";
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"dID=%@ and dName = %@",dID,dName];
+    NSPredicate *predicate;
+    if (searchText) {
+        predicate = [NSPredicate predicateWithFormat:@"dID=%@ and dName = %@ and condition contains[cd] %@",dID,dName,searchText];
+    }else {
+        predicate = [NSPredicate predicateWithFormat:@"dID=%@ and dName = %@",dID,dName];
+    }
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createDate" ascending:NO];
     
@@ -98,7 +102,7 @@
     
     [self setUpTableView];
     
-    [self setUpFetchViewController];
+    [self setUpFetchViewControllerWithSearchText:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectedCellLabel:) name:@"didSelectedTitleLabel" object:nil];
     
@@ -118,6 +122,15 @@
     NSDictionary *dic = NSDictionaryOfVariableBindings(dID,dName,section,content,condition,updatedTime,sourceType,createPeople,createDate);
     
     [self.coreDataStack createTemplateManagedObjectWithDataDic:dic successfulCreated:^{
+        
+    } failedToCreated:^(NSError *error, NSString *errorInfo) {
+        
+    }];
+    condition = @"网意商科室现病史";
+    sourceType = @"科室";
+    section = @"现病史";
+    NSDictionary *dict = NSDictionaryOfVariableBindings(dID,dName,section,content,condition,updatedTime,sourceType,createPeople,createDate);
+    [self.coreDataStack createTemplateManagedObjectWithDataDic:dict successfulCreated:^{
         
     } failedToCreated:^(NSError *error, NSString *errorInfo) {
         
@@ -154,7 +167,7 @@
 //    } failedToFetched:^(NSError *error, NSString *errorInfo) {
 //        
 //    }];
-    [self setUpFetchViewController];
+    [self setUpFetchViewControllerWithSearchText:nil];
     
     NSString *titleStr = [self.templateName stringByAppendingString:@"模板"];
     self.title = titleStr;    
@@ -256,6 +269,32 @@
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewAutomaticDimension;
+}
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    if ([searchBar isFirstResponder]) {
+        [searchBar resignFirstResponder];
+    }
+    searchBar.text = @"";
+    [self.searchBar setShowsCancelButton:NO animated:YES];
+    
+    [self setUpFetchViewControllerWithSearchText:nil];
+
+}
+-(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
+    [self.searchBar setShowsCancelButton:YES animated:YES];
+    return YES;
+}
+
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    NSString *searchText = searchBar.text;
+    
+    [self setUpFetchViewControllerWithSearchText:searchText];
+}
+-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    [self setUpFetchViewControllerWithSearchText:searchText];
+
 }
 //#pragma mask - fetch view controller delegate
 ///// fetch result controller delegate

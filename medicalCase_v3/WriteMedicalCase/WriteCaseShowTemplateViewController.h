@@ -15,6 +15,7 @@
 @end
 
 @interface WriteCaseShowTemplateViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (nonatomic,strong) NSString *templateName;
 @property (nonatomic) id <WriteCaseShowTemplateViewControllerDelegate> showTemplateDelegate;
 @end

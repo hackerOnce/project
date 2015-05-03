@@ -107,6 +107,8 @@
 		4705A47D1AF48659007FD2B9 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
 		4705A47F1AF4B41A007FD2B9 /* writeCaseFirstItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writeCaseFirstItemViewController.h; sourceTree = "<group>"; };
 		4705A4801AF4B41A007FD2B9 /* writeCaseFirstItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = writeCaseFirstItemViewController.m; sourceTree = "<group>"; };
+		4705A4821AF5AC83007FD2B9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		4705A4831AF5AC83007FD2B9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		4705EFE91AF1044B0050D47A /* WriteMedicalCase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WriteMedicalCase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4705EFED1AF1044B0050D47A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4705EFEE1AF1044B0050D47A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -724,6 +726,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4705EFF71AF1044B0050D47A /* Base */,
+				4705A4821AF5AC83007FD2B9 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -732,6 +735,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4705EFFC1AF1044B0050D47A /* Base */,
+				4705A4831AF5AC83007FD2B9 /* zh-Hans */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
