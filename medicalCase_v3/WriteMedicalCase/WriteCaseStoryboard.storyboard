@@ -186,7 +186,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ht5-uz-S24">
+                            <button opaque="NO" tag="10001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ht5-uz-S24">
                                 <rect key="frame" x="16" y="52" width="59" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="59" id="Orj-qd-6f8"/>
@@ -197,6 +197,9 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="leftUpButton:" destination="Yd1-7K-wUu" eventType="touchUpInside" id="hSs-pQ-hpm"/>
+                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="主诉" translatesAutoresizingMaskIntoConstraints="NO" id="Sgo-lo-hde" customClass="AutoHeightTextView">
                                 <rect key="frame" x="75" y="52" width="507" height="41"/>
@@ -261,6 +264,7 @@
                     <connections>
                         <outlet property="navButton" destination="GON-pa-LMv" id="ea6-lU-18r"/>
                         <outlet property="textView" destination="Sgo-lo-hde" id="APE-7t-XAk"/>
+                        <segue destination="9BS-ZV-gYV" kind="custom" identifier="firstItemCustomSegue" customClass="CustomSegue" id="Noa-wg-zEP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JkI-cU-tn1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -699,7 +703,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kxq-Ig-LiY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3218" y="422"/>
+            <point key="canvasLocation" x="2506" y="26"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="IRE-X6-rXP">
@@ -720,4 +724,7 @@
             <point key="canvasLocation" x="1099" y="-258"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Noa-wg-zEP"/>
+    </inferredMetricsTieBreakers>
 </document>

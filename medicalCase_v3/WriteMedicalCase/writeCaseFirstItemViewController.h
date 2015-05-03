@@ -16,4 +16,8 @@
 @property (nonatomic) id <writeCaseFirstItemViewControllerDelegate> delegate;
 @property (nonatomic,strong) NSString *titleString;
 @property (nonatomic,strong) NSString *textViewContent;
+
+@property (nonatomic,strong) UIView *rightSideSlideView;
+@property (nonatomic) BOOL  rightSlideViewFlag;
+
 @end

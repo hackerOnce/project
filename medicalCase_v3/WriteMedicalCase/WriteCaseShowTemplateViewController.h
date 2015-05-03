@@ -10,7 +10,6 @@
 
 @protocol WriteCaseShowTemplateViewControllerDelegate <NSObject>
 -(void)didSelectedTemplateWithNode:(Template*)templated withTitleStr:(NSString*)titleStr;
--(void)didSelectedTemplateWithString:(NSString*)str;
 
 @end
 
